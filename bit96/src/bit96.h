@@ -16,12 +16,14 @@ typedef struct {
     value_type_t value_type;
 } bit96;
 
+// структура для работы с 96битным числом
 typedef struct {
     unsigned long long x;
     unsigned long long y;
     unsigned long long z;
 } long3;
 
+// структура для умножения и деления 96 битных чисел
 typedef struct {
     unsigned long long x0;
     unsigned long long x1;
@@ -53,7 +55,7 @@ int FloatToBit96(float src, bit96 *dst);
 int Bit96ToInt(bit96 src, int *dst);
 int Bit96ToFloat(bit96 src, float *dst);
 
-// другие функции
+// Другие функции
 bit96 Negate(bit96 src);
 bit96 Truncate(bit96 src);
 bit96 Round(bit96 src);
@@ -78,17 +80,14 @@ void Long3Div(long3* src, unsigned int div);  // деление структур
 long3 Long3Add(long3 src1, long3 src2);  // сложение структур
 long3 Long3Sub(long3 src1, long3 src2);  // вычитание структур
 unsigned char Long3Comp(long3 src1, long3 src2);  // сравнение структур
-
 // подготовка переменных для мат операций
-unsigned char MathPreparing(bit96 src1, bit96 src2,
-                               long3* dst1_int, long3* dst2_int);
+unsigned char MathPreparing(bit96 src1, bit96 src2, long3* dst1_int, long3* dst2_int);
 // пушим максимально влево без потери точности
 void PushLeft(long3* src, unsigned char* rate);
 // пушим максимально вправо без потери точности
 void PushRight(long3* src, unsigned char* rate);
 // финишная подготовка, проверка выхода за границы
-void FinishPreparing(bit96* dst, long3 src,
-                        char rate, unsigned char sign);
+void FinishPreparing(bit96* dst, long3 src, char rate, unsigned char sign);
 // умножение большой структуры на число в степени
 void PowLong7(long7* src, unsigned char mux, char rate);
 // проверка ситуаций с невалидными зачениями при сложении
@@ -111,7 +110,7 @@ long7 Long7Add(long7* src1, long7* src2);
 void Long7Mul(long7* src, unsigned int mux);
 // деление большой структуры на число
 void Long7Div(long7* src, unsigned int div);
-// получение остатка от деления большой структуры на число
+// получение остатка от деления структуры на число
 unsigned int ModLong3UInt(long3 src, unsigned int mux);
 
 #endif  // SRC_BIT96_H_

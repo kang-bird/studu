@@ -65,7 +65,7 @@ void PowLong7(long7* src, unsigned char mux, char rate) {
     }
 }
 
-// получение остатка от деления большой структуры на число
+// получение остатка от деления структуры на число
 unsigned int ModLong3UInt(long3 src, unsigned int mux) {
     unsigned int result;
     if (mux != 0) {
