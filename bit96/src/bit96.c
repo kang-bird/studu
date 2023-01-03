@@ -52,7 +52,7 @@ long3 Bit96ToLong3(bit96 src) {
 }
 
 // обратная конвертация сруктуры в bit96
-void int_split_l(bit96* dst, long3 src) {
+void Long3ToBit96(bit96* dst, long3 src) {
     dst->bits[0] = 0;  // обнуляем для применения битовой маски
     dst->bits[1] = 0;
     dst->bits[2] = 0;
@@ -73,38 +73,38 @@ void Normalize(bit96 src1, bit96 src2, bit96* dst1, bit96* dst2) {
         long3 src2_int = Bit96ToLong3(src2);
         // двигаем максимально вправо наименьшее число
         while (rate2 > rate1 && (src2_int.x % MUX) == 0 && rate2 > 0) {
-            long3_div(&src2_int, MUX);
+            Long3Div(&src2_int, MUX);
             rate2 -= 1;
         }
         // двигаем максимально влево наибольшее число
         while (rate2 > rate1 && LimitCheck_l(src1_int.z * MUX) == 0 &&
                 rate1 < 28) {
-            long3_mul(&src1_int, MUX);
+            Long3Mul(&src1_int, MUX);
             rate1 += 1;
         }
         // двигаем вправо наименьшее число с потерей точности
         while (rate2 > rate1 && rate2 > 0) {
-            long3_div(&src2_int, MUX);
+            Long3Div(&src2_int, MUX);
             rate2 -= 1;
         }
         // двигаем всё вправо
         while (rate2 == rate1 && (src1_int.x % MUX) == 0 &&
                 (src2_int.x % MUX) == 0 && rate1 > 0) {
-            long3_div(&src1_int, MUX);
-            long3_div(&src2_int, MUX);
+            Long3Div(&src1_int, MUX);
+            Long3Div(&src2_int, MUX);
             rate1 -= 1;
             rate2 -= 1;
         }
         // возвращаем значения в переменные
-        int_split_l(dst1, src1_int);
-        int_split_l(dst2, src2_int);
+        Long3ToBit96(dst1, src1_int);
+        Long3ToBit96(dst2, src2_int);
         SetRate(dst1, rate1);
         SetRate(dst2, rate2);
     }
 }
 
 // сравнение структур
-unsigned char long3_comp(long3 src1, long3 src2) {
+unsigned char Long3Comp(long3 src1, long3 src2) {
     unsigned char result = 1;
     if (src1.z > src2.z)
         result = 0;
@@ -116,7 +116,7 @@ unsigned char long3_comp(long3 src1, long3 src2) {
 }
 
 // сложение структур
-long3 long3_add(long3 src1, long3 src2) {
+long3 Long3Add(long3 src1, long3 src2) {
     unsigned int limit = 0xFFFFFFFF;
     long3 result;
     // складываем каждый элемент структуры
@@ -135,7 +135,7 @@ long3 long3_add(long3 src1, long3 src2) {
 }
 
 // вычитание структур
-long3 long3_sub(long3 src1, long3 src2) {
+long3 Long3Sub(long3 src1, long3 src2) {
     long3 result;
     result.z = src1.z - src2.z;
     // если у больше, то заимствуем 1 у z
@@ -158,7 +158,7 @@ long3 long3_sub(long3 src1, long3 src2) {
 }
 
 // умножение структуры на число
-void long3_mul(long3* src, unsigned int mux) {
+void Long3Mul(long3* src, unsigned int mux) {
     unsigned int limit = 0xFFFFFFFF;
     // умножаем каждый элемент структуры на множитель
     src->x *= mux;
@@ -175,7 +175,7 @@ void long3_mul(long3* src, unsigned int mux) {
 }
 
 // деление структуры на число
-void long3_div(long3* src, unsigned int div) {
+void Long3Div(long3* src, unsigned int div) {
     // в случае наличия остатка переносим его в меньшему числу
     src->y += (src->z % div) << 32;
     src->x += (src->y % div) << 32;

@@ -1,6 +1,6 @@
 #include "bit96.h"
 
-int from_int_to_bit96(int src, bit96 *dst) {
+int IntToBit96(int src, bit96 *dst) {
     int result = 0;
     if (dst == 0) {
         result = 1;
@@ -19,7 +19,7 @@ int from_int_to_bit96(int src, bit96 *dst) {
     return result;
 }
 
-int from_bit96_to_int(bit96 src, int *dst) {
+int Bit96ToInt(bit96 src, int *dst) {
     int result = 0;
     if (dst == 0) {
         result = 1;
@@ -44,7 +44,7 @@ int from_bit96_to_int(bit96 src, int *dst) {
     return result;
 }
 
-int from_float_to_bit96(float src, bit96 *dst) {
+int FloatToBit96(float src, bit96 *dst) {
     int result = 0;
     if (dst == 0) {
         result = 1;
@@ -81,13 +81,13 @@ int from_float_to_bit96(float src, bit96 *dst) {
                 dst->bits[0] = 2;
                 if (n > 1) {
                     for (int j = 0; j < n - 1; j++) {
-                        *dst = mul(*dst, dec1);
+                        *dst = Mul(*dst, dec1);
                     }
                 } else if (n <= 0) {
                     dec1.bits[0] = 5;
                     SetRate(&dec1, 1);
                     for (int j = n; j <= 0; j++) {
-                        *dst = mul(*dst, dec1);
+                        *dst = Mul(*dst, dec1);
                     }
                 }
                 int r2 = 0;
@@ -99,10 +99,10 @@ int from_float_to_bit96(float src, bit96 *dst) {
                     m = m * (-1);
                 }
                 long3 dec4 = Bit96ToLong3(dec3);
-                long3_mul(&dec4, m);
-                int_split_l(&dec3, dec4);
+                Long3Mul(&dec4, m);
+                Long3ToBit96(&dec3, dec4);
                 SetRate(&dec3, r2);
-                *dst = mul(*dst, dec3);
+                *dst = Mul(*dst, dec3);
                 if (src > 0) {
                     SetSign(dst, 0);
                 } else {
@@ -123,7 +123,7 @@ int from_float_to_bit96(float src, bit96 *dst) {
 }
 
 
-int from_bit96_to_float(bit96 src, float *dst) {
+int Bit96ToFloat(bit96 src, float *dst) {
     int result = 0;
     if (!dst) {
         result = 1;

@@ -20,9 +20,9 @@ bit96 Truncate(bit96 src) {
         long3 src1 = Bit96ToLong3(src);
         unsigned char rate = GetRate(src);
         for (int i = 0; i < rate; i++) {
-            long3_div(&src1, 10);
+            Long3Div(&src1, 10);
         }
-        int_split_l(&src, src1);
+        Long3ToBit96(&src, src1);
         SetRate(&src, 0);
     } else {
         ZeroSet(&src);
@@ -40,13 +40,13 @@ bit96 Round(bit96 src) {
         bit96 src2 = src;
         unsigned char rate = GetRate(src);
         for (int i = 0; i < rate; i++) {
-            long3_div(&src1, 10);
+            Long3Div(&src1, 10);
         }
-        int_split_l(&src, src1);
+        Long3ToBit96(&src, src1);
         SetRate(&src, 0);
-        src2 = sub(src2, src);
-        if (is_greater_or_equal(src2, half) == 0) {
-            src = add(src, one);
+        src2 = Sub(src2, src);
+        if (IsGreaterOrEqual(src2, half) == 0) {
+            src = Add(src, one);
         }
         if (sign != 0) {
             SetSign(&src, 1);
@@ -67,13 +67,13 @@ bit96 Floor(bit96 src) {
         bit96 src2 = src;
         unsigned char rate = GetRate(src);
         for (int i = 0; i < rate; i++) {
-            long3_div(&src1, 10);
+            Long3Div(&src1, 10);
         }
-        int_split_l(&src, src1);
+        Long3ToBit96(&src, src1);
         SetRate(&src, 0);
-        src2 = sub(src2, src);
-        if (is_greater(src2, nul) == 0 && sign != 0) {
-            src = add(src, one);
+        src2 = Sub(src2, src);
+        if (IsGreater(src2, nul) == 0 && sign != 0) {
+            src = Add(src, one);
         }
         if (sign != 0) {
             SetSign(&src, 1);
