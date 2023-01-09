@@ -20,11 +20,9 @@ GFLAGS= -fprofile-arcs -ftest-coverage
 OS=$(shell uname)
 
 ifeq ($(OS), Linux)
-  LIBS= -lgtest -lpthread -lrt -lm
   LEAKER= valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes -s --log-file=valgrind.txt
   LINUXFLAGS= -lpthread -lsubunit -ldl -lrt -lm
 else
-  LIBS= -lgtest
   LEAKER= CK_FORK=no leaks --atExit --
   LINUXFLAGS=
 endif
@@ -33,23 +31,22 @@ all: clean build
 
 install: uninstall
 	mkdir ../build
-	$(CC) $(SOURCES) -o ../build/MLP $(GTKFLAGS)
+	$(CC) $(SOURCES) -o ../build/AI $(GTKFLAGS)
 	
 uninstall:
 	rm -rf ../build
 
 build:	clean
-	$(CC) $(SOURCES) -o MLP $(GTKFLAGS) $(LINUXFLAGS) 
+	$(CC) $(SOURCES) -o AI $(GTKFLAGS) $(LINUXFLAGS) 
 
 test_prep: $(TSOURCES)
-	$(TCC) $(TSOURCES) $(LIBS) -o test $(GTKFLAGS)
+	$(TCC) $(TSOURCES) -lgtest -o test $(GTKFLAGS) $(LINUXFLAGS)
 
 test: test_prep
 	./test
 
 clean:
-	@rm -f *.o test *.out *.gcov *.gcda *.gcno *.info *.a *.tar CPPLINT.cfg valgrind.txt MLP
-	@rm -rf ./coverage ./info
+	@rm -f *.o test *.out *.a valgrind.txt AI
 
 rebuild: clean all
 
