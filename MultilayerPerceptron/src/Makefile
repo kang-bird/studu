@@ -21,32 +21,26 @@ OS=$(shell uname)
 
 ifeq ($(OS), Linux)
   LEAKER= valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes -s --log-file=valgrind.txt
-  LINUXFLAGS= -lpthread -lsubunit -ldl -lrt -lm
+  LIBS= -lpthread -lsubunit -ldl -lrt -lm
 else
   LEAKER= CK_FORK=no leaks --atExit --
-  LINUXFLAGS=
+  LIBS=
 endif
 
 all: clean build
 
-install: uninstall
-	mkdir ../build
-	$(CC) $(SOURCES) -o ../build/AI $(GTKFLAGS)
-	
-uninstall:
-	rm -rf ../build
 
 build:	clean
-	$(CC) $(SOURCES) -o AI $(GTKFLAGS) $(LINUXFLAGS) 
+	$(CC) $(SOURCES) -o AI $(GTKFLAGS) $(LIBS) 
 
 test_prep: $(TSOURCES)
-	$(TCC) $(TSOURCES) -lgtest -o test $(GTKFLAGS) $(LINUXFLAGS)
+	$(TCC) $(TSOURCES) -lgtest -o test $(GTKFLAGS) $(LIBS)
 
 test: test_prep
 	./test
 
 clean:
-	@rm -f *.o test *.out *.a valgrind.txt AI
+	@rm -f *.o test *.out *.a valgrind.txt AI .temp.csv
 
 rebuild: clean all
 

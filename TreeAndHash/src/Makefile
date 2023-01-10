@@ -10,9 +10,10 @@ TREESOURCES = AVL/self_balancing_binary_search_tree.cc\
 
 CC = g++ -std=c++17 -Wall -Werror -Wextra
 GFLAGS= -fprofile-arcs -ftest-coverage
+OS=$(shell uname)
 
 ifeq ($(OS), Linux)
-  LIBS = -lpthread -lrt -lm
+  LIBS = -lpthread -lsubunit -ldl -lrt -lm
   LEAKER = valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes -s --log-file=valgrind.txt
 else
   LIBS = 
@@ -25,7 +26,6 @@ all: build
 build: clean
 	$(CC) $(ASOURCES) $(SOURCES) $(TREESOURCES) $(LIBS) -o treeandhash.out
 
-tests: test
 
 test: clean
 	$(CC) tests.cc $(SOURCES) $(TREESOURCES) -lgtest $(LIBS) -o test.out
@@ -49,12 +49,9 @@ clean:
 
 rebuild: clean all
 
-cppcheck: 
-	cppcheck --enable=all --suppress=missingIncludeSystem *.cc *.h
-
 check: cppcheck
 
 leaks: test
 	$(LEAKER) ./test.out
 
-.PHONY: all build clean rebuild cppcheck tests test leaks gcov_report
+.PHONY: all build clean rebuild test leaks gcov_report
