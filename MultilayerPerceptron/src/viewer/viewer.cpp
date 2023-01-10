@@ -444,7 +444,7 @@ void MainWindow::ClickTest() {
         double time = static_cast<double>(end - begin) / CLOCKS_PER_SEC;
         label_time_.set_label(std::to_string(time));
         parametr = ctrl_->GetParametrs();
-        double accuracy = parametr.average_accuracy;
+        double accuracy = 1 - parametr.average_accuracy;
         label_accuracy_.set_label(std::to_string(accuracy));
         double precision = parametr.correct * 100.0 /(parametr.error + parametr.correct);
         label_precision_.set_label(std::to_string(precision));
