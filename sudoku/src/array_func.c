@@ -1,35 +1,35 @@
 #include "ft.h"
 
-int arr_create(int ***arr, char **argv) {
+char** arr_create(char **argv) {
   int x;
-  int y;
+  char** result = NULL;
 
   x = 0;
-  *arr = (int **)malloc(sizeof(int *) * 9);
+  result = (char**)malloc(sizeof(char *) * 9);
   while (x < 9) {
-    y = 0;
-    *(*arr + x) = (int *)malloc(sizeof(int) * 9);
+    int y = 0;
+    *(result + x) = (char *)malloc(sizeof(int) * 9);
     while (y < 9) {
       if (*(*(argv + x) + y) == '.')
-        *(*(*arr + x) + y) = 0;
+        *(*(result + x) + y) = 0;
       else
-        *(*(*arr + x) + y) = *(*(argv + x) + y) - '0';
+        *(*(result + x) + y) = *(*(argv + x) + y) - '0';
       y++;
     }
     x++;
   }
-  return (0);
+  return result;
 }
 
-int arr_copy(int ***arr_new, int **arr_old) {
+int arr_copy(char ***arr_new, char **arr_old) {
   int x;
   int y;
 
   x = 0;
-  *arr_new = (int **)malloc(sizeof(int *) * 9);
+  *arr_new = (char **)malloc(sizeof(char *) * 9);
   while (x < 9) {
     y = 0;
-    *(*arr_new + x) = (int *)malloc(sizeof(int) * 9);
+    *(*arr_new + x) = (char *)malloc(sizeof(int) * 9);
     while (y < 9) {
       *(*(*arr_new + x) + y) = *(*(arr_old + x) + y);
       y++;
@@ -39,7 +39,7 @@ int arr_copy(int ***arr_new, int **arr_old) {
   return (0);
 }
 
-int arr_print(int **arr) {
+int arr_print(char **arr) {
   int x;
   int y;
 

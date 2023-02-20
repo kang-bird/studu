@@ -20,14 +20,14 @@ int	    ft_strlen(char *str);  // вывод строки
 void	error(int x);  // вывод ошибки
 char    par_check_value(char **argv);  // проверка значения параметров
 char	par_check(int argc, char **argv);  // проверка параметров, сначало кол-во
-int		arr_create(int ***arr, char **argv);
-int		arr_print(int **arr);
-int		sud_check(int **arr);
-int		num_check(int **arr, int x, int y, int num);
-int		solve(int **arr);
-int		solve_num(int **arr, int *s_num);
-int		arr_copy(int ***arr_new, int **arr_old);
-int		double_check(int **arr);
-int		preparing(int *x, int *y, int **new_arr);
-int		zero_check(int **new_arr, int x, int y);
+char**	arr_create(char **argv);
+int		arr_print(char **arr);
+int		sud_check(char **arr);
+int		num_check(char **arr, int x, int y, int num);
+int		solve(char **arr);
+int		solve_num(char **arr, int *s_num);
+int		arr_copy(char ***arr_new, char **arr_old);
+int		double_check(char **arr);
+int		preparing(char *x, char *y, char **new_arr);
+int		zero_check(char **new_arr, int x, int y);
 #endif

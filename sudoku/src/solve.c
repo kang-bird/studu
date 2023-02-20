@@ -1,6 +1,6 @@
 #include "ft.h"
 
-int preparing(int *x, int *y, int **new_arr) {
+int preparing(char *x, char *y, char **new_arr) {
   *x = 0;
   while (*x < 9) {
     *y = 0;
@@ -13,7 +13,7 @@ int preparing(int *x, int *y, int **new_arr) {
   return (0);
 }
 
-int zero_check(int **new_arr, int x, int y) {
+int zero_check(char **new_arr, int x, int y) {
   int acc;
   int index;
 
@@ -23,7 +23,7 @@ int zero_check(int **new_arr, int x, int y) {
   return (index);
 }
 
-int recur(int **new_arr, int x, int y) {
+int recur(char **new_arr, int x, int y) {
   int acc;
 
   acc = 0;
@@ -35,10 +35,9 @@ int recur(int **new_arr, int x, int y) {
   return (0);
 }
 
-int solve(int **arr) {
-  int x;
-  int y;
-  int **new_arr;
+int solve(char **arr) {
+  char x, y;
+  char **new_arr;
 
   if (sud_check(arr)) return (1);
   arr_copy(&new_arr, arr);
@@ -56,7 +55,7 @@ int solve(int **arr) {
 }
 
 
-int recur_num(int **new_arr, int x, int y, int *s_num) {
+int recur_num(char **new_arr, int x, int y, int *s_num) {
   int acc;
 
   acc = 0;
@@ -68,10 +67,9 @@ int recur_num(int **new_arr, int x, int y, int *s_num) {
   return (0);
 }
 
-int solve_num(int **arr, int *s_num) {
-  int x;
-  int y;
-  int **new_arr;
+int solve_num(char **arr, int *s_num) {
+  char x, y;
+  char **new_arr;
 
   if (*s_num > 1000) return (0);
   if (sud_check(arr)) return (1);

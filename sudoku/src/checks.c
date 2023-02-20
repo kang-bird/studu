@@ -1,6 +1,6 @@
 #include "ft.h"
 
-int line_check(int **arr, int x, int num) {
+int line_check(char **arr, int x, int num) {
   int acc = 0;
   while (acc < 9) {
     if (*(*(arr + x) + acc) == num) return 0;
@@ -9,7 +9,7 @@ int line_check(int **arr, int x, int num) {
   return 1;
 }
 
-int column_check(int **arr, int y, int num) {
+int column_check(char **arr, int y, int num) {
   int acc;
 
   acc = 0;
@@ -20,7 +20,7 @@ int column_check(int **arr, int y, int num) {
   return 1;
 }
 
-int box_check(int **arr, int x, int y, int num) {
+int box_check(char **arr, int x, int y, int num) {
   int acc_x;
   int acc_y;
 
@@ -38,11 +38,11 @@ int box_check(int **arr, int x, int y, int num) {
   return 1;
 }
 
-int double_check(int **arr) {
+int double_check(char **arr) {
   int x;
   int y;
   int acc;
-  int **temp;
+  char **temp;
 
   x = -1;
   arr_copy(&temp, arr);
@@ -63,7 +63,7 @@ int double_check(int **arr) {
   return 0;
 }
 
-int num_check(int **arr, int x, int y, int num) {
+int num_check(char **arr, int x, int y, int num) {
   if (box_check(arr, x, y, num) && line_check(arr, x, num) &&
       column_check(arr, y, num))
     return 1;
@@ -78,18 +78,18 @@ char par_check_value(char **argv) {
 
   while (x < 10 && !result) {
     int y = 0;
-    while (y < 9) {
+    while (y < 9 &&  !result) {
       acc = *(*(argv + x) + y);
       if ((acc != '.' && (acc < '1' || acc > '9'))) {
         error(kERR_CHAR);
-        return 1;
+        result = 1;
       }
       y++;
     }
     result = ft_strlen(*(argv + x)) != 9;
     x++;
   }
-  return kZERO;
+  return result;
 }
 
 // проверка параметров, сначало кол-во
@@ -105,7 +105,7 @@ char par_check(int argc, char **argv) {
   return (par_check_value(argv));
 }
 
-int sud_check(int **arr) {
+int sud_check(char **arr) {
   int x;
 
   x = 0;
