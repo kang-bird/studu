@@ -49,8 +49,6 @@ clean:
 
 rebuild: clean all
 
-check: cppcheck
-
 leaks: test
 	$(LEAKER) ./test.out
 
