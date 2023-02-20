@@ -16,5 +16,6 @@ int main(int argc, char **argv) {
   ft_putstr("Total number of solutions: ");
   ft_putnbr(total);
   ft_putchar('\n');
+  arr = arr_delete(arr);
   return 0;
 }

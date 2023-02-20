@@ -39,27 +39,27 @@ int box_check(char **arr, int x, int y, int num) {
 }
 
 int double_check(char **arr) {
-  int x;
-  int y;
+  int x = 0;
   int acc;
   char **temp;
 
-  x = -1;
-  arr_copy(&temp, arr);
-  while (++x < 9) {
-    y = -1;
-    while (++y < 9) {
+  temp = arr_cpy(arr);
+  while (x < 9) {
+    int y = 0;
+    while (y < 9) {
       acc = *(*(temp + x) + y);
       *(*(temp + x) + y) = 0;
       if (!num_check(temp, x, y, acc) && acc != 0) {
         error(kERR_CHAR);
-        free(temp);
+        temp = arr_delete(temp);
         return 1;
       }
       *(*(temp + x) + y) = acc;
+      y++;
     }
+    x++;
   }
-  free(temp);
+  temp = arr_delete(temp);
   return 0;
 }
 

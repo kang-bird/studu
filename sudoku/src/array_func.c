@@ -1,10 +1,10 @@
 #include "ft.h"
 
+// выделение памяти под первичный массив
 char** arr_create(char **argv) {
-  int x;
+  int x = 0;
   char** result = NULL;
 
-  x = 0;
   result = (char**)malloc(sizeof(char *) * 9);
   while (x < 9) {
     int y = 0;
@@ -21,22 +21,22 @@ char** arr_create(char **argv) {
   return result;
 }
 
-int arr_copy(char ***arr_new, char **arr_old) {
-  int x;
-  int y;
+// копирование массива
+char** arr_cpy(char **arr_old) {
+  int x = 0;
+  char** result = NULL;
 
-  x = 0;
-  *arr_new = (char **)malloc(sizeof(char *) * 9);
+  result = (char **)malloc(sizeof(char *) * 9);
   while (x < 9) {
-    y = 0;
-    *(*arr_new + x) = (char *)malloc(sizeof(int) * 9);
+    int y = 0;
+    *(result + x) = (char *)malloc(sizeof(int) * 9);
     while (y < 9) {
-      *(*(*arr_new + x) + y) = *(*(arr_old + x) + y);
+      *(*(result + x) + y) = *(*(arr_old + x) + y);
       y++;
     }
     x++;
   }
-  return (0);
+  return result;
 }
 
 int arr_print(char **arr) {
@@ -55,4 +55,17 @@ int arr_print(char **arr) {
   }
   ft_putchar('\n');
   return (0);
+}
+
+// очистка памяти массива
+char** arr_delete(char **arr) {
+  char x = 0;
+
+  while (x < 9) {
+    free(*(arr + x));
+    *(arr + x) = NULL;
+    x++;
+  }
+  free(arr);
+  return NULL;
 }

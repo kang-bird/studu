@@ -40,7 +40,7 @@ int solve(char **arr) {
   char **new_arr;
 
   if (sud_check(arr)) return (1);
-  arr_copy(&new_arr, arr);
+  new_arr = arr_cpy(arr);
   preparing(&x, &y, new_arr);
   if (*(*(new_arr + x) + y) == 0) {
     if (zero_check(new_arr, x, y) == 0) {
@@ -73,7 +73,7 @@ int solve_num(char **arr, int *s_num) {
 
   if (*s_num > 1000) return (0);
   if (sud_check(arr)) return (1);
-  arr_copy(&new_arr, arr);
+  new_arr = arr_cpy(arr);
   preparing(&x, &y, new_arr);
   if (*(*(new_arr + x) + y) == 0) {
     if (zero_check(new_arr, x, y) == 0) {

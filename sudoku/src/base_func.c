@@ -14,22 +14,13 @@ void ft_putstr(char *str) {
 }
 
 // преобразование числа в строку
-void ft_putnbr(int num) {
-  char str[100];
-  int acc;
-
-  if (num == kZERO) {
-    ft_putchar('0');
-    return;
+void ft_putnbr(unsigned int num) {
+  if (num > 9) {
+    ft_putnbr(num / 10);
+    ft_putnbr(num % 10);
+  } else {
+    ft_putchar(num + '0');
   }
-  str[99] = kZERO;
-  acc = 99;
-  while (num) {
-    acc--;
-    str[acc] = num % 10 + '0';
-    num /= 10;
-  }
-  ft_putstr(str + acc);
 }
 
 // длина строки
