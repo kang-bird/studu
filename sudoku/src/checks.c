@@ -1,73 +1,73 @@
 #include "ft.h"
 
-int line_check(char **arr, int x, int num) {
+// проверка строки
+char line_check(char **arr, int x, char num) {
   int acc = 0;
-  while (acc < 9) {
-    if (*(*(arr + x) + acc) == num) return 0;
+  char result = 1;
+  while (acc < 9 && result) {
+    result = arr[x][acc] != num;
     acc++;
   }
-  return 1;
+  return result;
 }
 
-int column_check(char **arr, int y, int num) {
-  int acc;
+// проверка столбца
+char column_check(char **arr, int y, char num) {
+  int acc = 0;
+  char result = 1;
 
-  acc = 0;
-  while (acc < 9) {
-    if (*(*(arr + acc) + y) == num) return 0;
+  while (acc < 9 && result) {
+    result = arr[acc][y] != num;
     acc++;
   }
-  return 1;
+  return result;
 }
 
-int box_check(char **arr, int x, int y, int num) {
-  int acc_x;
-  int acc_y;
+// проверка числа в квадрате 3х3
+char box_check(char **arr, int x, int y, char num) {
+  int acc_x = 0;
+  char result = 1;
 
   x = (x / 3) * 3;
   y = (y / 3) * 3;
-  acc_x = 0;
-  while (acc_x < 3) {
-    acc_y = 0;
-    while (acc_y < 3) {
-      if (*(*(arr + acc_x + x) + acc_y + y) == num) return 0;
+  while (acc_x < 3 && result) {
+    char acc_y = 0;
+    while (acc_y < 3 && result) {
+      result = arr[acc_x + x][acc_y + y] != num;
       acc_y++;
     }
     acc_x++;
   }
-  return 1;
+  return result;
 }
 
-int double_check(char **arr) {
-  int x = 0;
-  int acc;
-  char **temp;
+// проверка совпадения числа по всем фронтам
+char num_check(char **arr, int x, int y, char num) {
+  return box_check(arr, x, y, num) && line_check(arr, x, num) &&
+      column_check(arr, y, num);
+}
 
-  temp = arr_cpy(arr);
-  while (x < 9) {
+// проверка совпадения всех чисел по всем фронтам
+char double_check(char **arr) {
+  int x = 0;
+  char acc = 0;
+  char result = 0;
+
+  while (x < 9 && !result) {
     int y = 0;
-    while (y < 9) {
-      acc = *(*(temp + x) + y);
-      *(*(temp + x) + y) = 0;
-      if (!num_check(temp, x, y, acc) && acc != 0) {
+    while (y < 9 && !result) {
+      acc = arr[x][y];
+      arr[x][y] = 0;
+      if (acc != 0 && !num_check(arr, x, y, acc)) {
         error(kERR_CHAR);
-        temp = arr_delete(temp);
-        return 1;
+        result = 1;
       }
-      *(*(temp + x) + y) = acc;
+      arr[x][y] = acc;
       y++;
     }
     x++;
   }
-  temp = arr_delete(temp);
-  return 0;
-}
-
-int num_check(char **arr, int x, int y, int num) {
-  if (box_check(arr, x, y, num) && line_check(arr, x, num) &&
-      column_check(arr, y, num))
-    return 1;
-  return 0;
+  return result;
 }
 
 // проверка значения параметров
