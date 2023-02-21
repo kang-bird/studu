@@ -1,11 +1,11 @@
 #include "ft.h"
 
 // выделение памяти под первичный массив
-char** arr_create(char **argv) {
+char **arr_create(char **argv) {
   int x = 0;
-  char** result = NULL;
+  char **result = NULL;
 
-  result = (char**)malloc(sizeof(char *) * 9);
+  result = (char **)malloc(sizeof(char *) * 9);
   while (x < 9) {
     int y = 0;
     result[x] = (char *)malloc(sizeof(char) * 9);
@@ -22,9 +22,9 @@ char** arr_create(char **argv) {
 }
 
 // копирование массива
-char** arr_cpy(char **arr_old) {
+char **arr_cpy(char **arr_old) {
   int x = 0;
-  char** result = NULL;
+  char **result = NULL;
 
   result = (char **)malloc(sizeof(char *) * 9);
   while (x < 9) {
@@ -39,26 +39,19 @@ char** arr_cpy(char **arr_old) {
   return result;
 }
 
-int arr_print(char **arr) {
-  int x;
-  int y;
-
-  x = 0;
-  while (x < 9) {
-    y = 0;
-    while (y < 9) {
+// печать массива
+void arr_print(char **arr) {
+  for (int x = 0; x < 9; ++x) {
+    for (int y = 0; y < 9; ++y) {
       ft_putchar(arr[x][y] + '0');
-      y++;
     }
     ft_putchar('\n');
-    x++;
   }
   ft_putchar('\n');
-  return (0);
 }
 
 // очистка памяти массива
-char** arr_delete(char **arr) {
+char **arr_delete(char **arr) {
   int x = 0;
 
   while (x < 9) {

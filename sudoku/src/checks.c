@@ -44,7 +44,7 @@ bool box_check(char **arr, int x, int y, char num) {
 // проверка отсутствия числа по всем фронтам
 bool num_check(char **arr, int x, int y, char num) {
   return box_check(arr, x, y, num) && row_check(arr, x, num) &&
-      column_check(arr, y, num);
+         column_check(arr, y, num);
 }
 
 // проверка совпадения всех чисел по всем фронтам
@@ -105,19 +105,20 @@ bool par_check(int argc, char **argv) {
   return (par_check_value(argv));
 }
 
-int sud_check(char **arr) {
-  int x;
+// проверяем полностью ли решён судоку
+bool sud_check(char **arr) {
+  bool result = true;
+  int x = 0;
 
-  x = 0;
-  while (x < 9) {
+  while (x < 9 && result) {
     int y = 0;
-    while (y < 9) {
-      if (arr[x][y] == 0) return 0;
+    while (y < 9 && result) {
+      result &= (arr[x][y] != 0);
       y++;
     }
     x++;
   }
-  return 1;
+  return result;
 }
 
 // подсчёт кол-ва допустимых для вставки чисел

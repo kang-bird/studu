@@ -1,4 +1,5 @@
 # Study projects
+- [Sudoku](./sudoku/) - implementation sudoku 9х9 solving utility (language `C`).
 - [CatAndGrep](./catAndGrep/) - implementation of Bash text utilities: cat, grep (language `C`).
 - [bit96](./bit96/) - implementation 96-bit value type (language `C`).
 - [Containers](./containers/) - implementation containers from Standard Template Library (STL): list, vector, queue, set, etc. (language `C++`, Templates)

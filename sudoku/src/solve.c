@@ -23,40 +23,46 @@ bool preparing(int *x, int *y, char **new_arr) {
   return result;
 }
 
-int recur(char **new_arr, int x, int y, int *s_num) {
+// узел ветвления для всех допустимых чисел
+void recur(char **new_arr, int x, int y, int *s_num) {
   int acc;
 
-  acc = 0;
-  while (++acc <= 9)
+  acc = 1;
+  while (acc < 10) {
     if (num_check(new_arr, x, y, acc)) {
       new_arr[x][y] = acc;
+      // если не конец судоку, то запускаем новое решение
       if (x != 8 || y != 8) {
         solve(new_arr, s_num);
       }
     }
-  return (0);
+    acc++;
+  }
 }
 
-int solve(char **arr, int *s_num) {
+// решение судоку
+void solve(char **arr, int *s_num) {
   int x, y;
   char **new_arr;
 
-  if (*s_num > 1000) return (0);
-  if (sud_check(arr)) return (1);
+  if (*s_num >= kMAX_SOLUTION) {
+    return;
+  }
+
   new_arr = arr_cpy(arr);
   // если найдена пустая ячейка, то проваливаемся
   if (preparing(&x, &y, new_arr)) {
     // если этот вариант не решаемый, тогда прекращаем работу с ним
     if (zero_check(new_arr, x, y) == 0) {
       new_arr = arr_delete(new_arr);
-      return (0);
+      return;
     }
     recur(new_arr, x, y, s_num);
   }
-  if (sud_check(new_arr)) {
+  // если нашли решение, то инкрементируем общий счётчик
+  if (sud_check(new_arr) && *s_num < kMAX_SOLUTION) {
     *s_num += 1;
     arr_print(new_arr);
   }
   new_arr = arr_delete(new_arr);
-  return (1);
 }
