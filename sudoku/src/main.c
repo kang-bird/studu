@@ -1,5 +1,9 @@
 #include "ft.h"
 
+const char kZERO = 0;
+const char kERR_PAR_NUM = 1;
+const char kERR_CHAR = 2;
+
 int main(int argc, char **argv) {
   char **arr = NULL;
   int total = 0;

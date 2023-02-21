@@ -11,5 +11,4 @@ void error(int x) {
   }
   if (x == kERR_PAR_NUM) ft_putstr("Error, wrong number of lines\n");
   if (x == kERR_CHAR) ft_putstr("Error, wrong keys characters\n");
-  if (x == kERR_OPTION) ft_putstr("Error, wrong option");
 }
