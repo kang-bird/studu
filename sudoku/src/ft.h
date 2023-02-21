@@ -28,10 +28,9 @@ char    row_check(char **arr, int x, char num);  // проверка строк�
 char    column_check(char **arr, int y, char num);  // проверка столбца
 char    box_check(char **arr, int x, int y, char num);  // проверка числа в квадрате 3х3
 char	num_check(char **arr, int x, int y, char num);  // проверка совпадения числа по всем фронтам
-int		solve(char **arr);
-int		solve_num(char **arr, int *s_num);
+int		solve(char **arr, int *s_num);
 char**	arr_cpy(char **arr_old);  // копирование массива
 char	double_check(char **arr);  // проверка совпадения всех чисел по всем фронтам
-int		preparing(char *x, char *y, char **new_arr);
+int		preparing(int *x, int *y, char **new_arr);
 int		zero_check(char **new_arr, int x, int y);
 #endif
