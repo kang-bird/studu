@@ -4,7 +4,7 @@ int main(int argc, char **argv) {
   char **arr = NULL;
   int total = 0;
 
-  if (par_check(argc, argv) || !((arr = arr_create(argv + 1)) != NULL) || double_check(arr))
+  if (!par_check(argc, argv) || ((arr = arr_create(argv + 1)) == NULL) || !double_check(arr))
     return 0;
   solve_num(arr, &total);
   if (total > 10) {

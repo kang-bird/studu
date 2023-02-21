@@ -24,7 +24,7 @@ char**	arr_create(char **argv);  // выделение памяти под пе�
 char**  arr_delete(char **arr);  // очистка памяти массива
 int		arr_print(char **arr);
 int		sud_check(char **arr);
-char    line_check(char **arr, int x, char num);  // проверка строки
+char    row_check(char **arr, int x, char num);  // проверка строки
 char    column_check(char **arr, int y, char num);  // проверка столбца
 char    box_check(char **arr, int x, int y, char num);  // проверка числа в квадрате 3х3
 char	num_check(char **arr, int x, int y, char num);  // проверка совпадения числа по всем фронтам
